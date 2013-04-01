@@ -61,6 +61,7 @@ private:
   //  QTimer *timer2;
   //  QTimer *query_timer;
    // QFile settings;
+    quint8 adc_chn_num;//количество аналоговых каналов
 
     //---------------------
     Dialog_com com_dlg;

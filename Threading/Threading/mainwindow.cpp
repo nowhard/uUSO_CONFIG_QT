@@ -222,6 +222,7 @@ void MainWindow::on_dev_info_responsed(void)
         qDebug("%i",i);
     }*/
    ui->tableWidget->setRowCount(0);
+   adc_chn_num=0;
 
    for(i=1;i<=p_uso->DEV->channel_num;i++)
    {
@@ -233,6 +234,8 @@ void MainWindow::on_dev_info_responsed(void)
        {
        case 0x0:
            {
+               adc_chn_num++;
+
                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, new QTableWidgetItem(tr("Аналоговый")));
                ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 2,new QComboBox());
                QComboBox *cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-1, 2));
@@ -375,7 +378,7 @@ void MainWindow::Get_All_Data(void)
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    for(quint8 i=0;i<8/*ui->tableWidget->rowCount()p_uso->DEV->channel_num*/;i++)
+    for(quint8 i=0;i<adc_chn_num/*ui->tableWidget->rowCount()p_uso->DEV->channel_num*/;i++)
     {
         if(i<8)//настройки по аналоговым каналам
         {
