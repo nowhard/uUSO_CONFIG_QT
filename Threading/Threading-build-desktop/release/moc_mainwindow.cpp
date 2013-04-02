@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Tue 10. Apr 09:15:32 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
+** Created: Mon 1. Apr 16:39:45 2013
+**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../../Threading/mainwindow.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,7 +20,7 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_MainWindow[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
       22,   14, // methods
@@ -78,9 +78,46 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_menu_save_settings_clicked()\0"
 };
 
+void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        MainWindow *_t = static_cast<MainWindow *>(_o);
+        switch (_id) {
+        case 0: _t->on_pushButton_5_clicked(); break;
+        case 1: _t->on_pushButton_4_clicked(); break;
+        case 2: _t->on_pushButton_3_clicked(); break;
+        case 3: _t->on_pushButton_2_clicked(); break;
+        case 4: _t->on_action_COM_triggered(); break;
+        case 5: _t->on_pushButton_clicked(); break;
+        case 6: _t->on_dev_info_responsed(); break;
+        case 7: _t->on_dev_get_data_responsed(); break;
+        case 8: _t->MessageReadOK((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 9: _t->MessageWriteOK((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: _t->MessageNotConnected(); break;
+        case 11: _t->Display_Dev_Info((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< quint16(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 12: _t->Info_Is_Set((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 13: _t->Get_All_Data(); break;
+        case 14: _t->UnactiveInterface(); break;
+        case 15: _t->ActivateInterface(); break;
+        case 16: _t->on_calibrate_0_button_clicked(); break;
+        case 17: _t->on_calibrate_full_button_clicked(); break;
+        case 18: _t->on_calibrate_flag_clicked(); break;
+        case 19: _t->on_calibrate_set_button_clicked(); break;
+        case 20: _t->on_menu_load_settings_clicked(); break;
+        case 21: _t->on_menu_save_settings_clicked(); break;
+        default: ;
+        }
+    }
+}
+
+const QMetaObjectExtraData MainWindow::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
+};
+
 const QMetaObject MainWindow::staticMetaObject = {
     { &QMainWindow::staticMetaObject, qt_meta_stringdata_MainWindow,
-      qt_meta_data_MainWindow, 0 }
+      qt_meta_data_MainWindow, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -106,31 +143,8 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: on_pushButton_5_clicked(); break;
-        case 1: on_pushButton_4_clicked(); break;
-        case 2: on_pushButton_3_clicked(); break;
-        case 3: on_pushButton_2_clicked(); break;
-        case 4: on_action_COM_triggered(); break;
-        case 5: on_pushButton_clicked(); break;
-        case 6: on_dev_info_responsed(); break;
-        case 7: on_dev_get_data_responsed(); break;
-        case 8: MessageReadOK((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 9: MessageWriteOK((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: MessageNotConnected(); break;
-        case 11: Display_Dev_Info((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< quint16(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
-        case 12: Info_Is_Set((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 13: Get_All_Data(); break;
-        case 14: UnactiveInterface(); break;
-        case 15: ActivateInterface(); break;
-        case 16: on_calibrate_0_button_clicked(); break;
-        case 17: on_calibrate_full_button_clicked(); break;
-        case 18: on_calibrate_flag_clicked(); break;
-        case 19: on_calibrate_set_button_clicked(); break;
-        case 20: on_menu_load_settings_clicked(); break;
-        case 21: on_menu_save_settings_clicked(); break;
-        default: ;
-        }
+        if (_id < 22)
+            qt_static_metacall(this, _c, _id, _a);
         _id -= 22;
     }
     return _id;

@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 10. Apr 09:15:02 2012
-**      by: Qt User Interface Compiler version 4.7.0
+** Created: Tue 2. Apr 13:21:39 2013
+**      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -118,8 +118,8 @@ public:
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
         groupBox_3->setGeometry(QRect(10, 170, 931, 401));
         tableWidget = new QTableWidget(groupBox_3);
-        if (tableWidget->columnCount() < 12)
-            tableWidget->setColumnCount(12);
+        if (tableWidget->columnCount() < 13)
+            tableWidget->setColumnCount(13);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -134,6 +134,8 @@ public:
         tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
         tableWidget->setGeometry(QRect(10, 20, 911, 331));
         tableWidget->setMouseTracking(false);
@@ -147,7 +149,7 @@ public:
         tableWidget->setWordWrap(false);
         tableWidget->setCornerButtonEnabled(true);
         tableWidget->setRowCount(0);
-        tableWidget->setColumnCount(12);
+        tableWidget->setColumnCount(13);
         tableWidget->horizontalHeader()->setDefaultSectionSize(100);
         tableWidget->verticalHeader()->setVisible(false);
         tableWidget->verticalHeader()->setCascadingSectionResizes(false);
@@ -271,6 +273,8 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
+        ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
         pushButton_4->setText(QApplication::translate("MainWindow", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214 \320\277\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", 0, QApplication::UnicodeUTF8));
         pushButton_3->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\277\321\203\321\201\321\202\320\270\321\202\321\214 \321\201\320\261\320\276\321\200 \320\264\320\260\320\275\320\275\321\213\321\205", 0, QApplication::UnicodeUTF8));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\320\236\320\261\321\211\320\260\321\217 \320\270\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217 \320\276\320\261 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\265", 0, QApplication::UnicodeUTF8));

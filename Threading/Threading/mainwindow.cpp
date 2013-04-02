@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget->setHorizontalHeaderItem(10, new QTableWidgetItem(tr("Установить")));
 
     ui->tableWidget->setHorizontalHeaderItem(11, new QTableWidgetItem(tr("Разрядность")));
+    ui->tableWidget->setHorizontalHeaderItem(12, new QTableWidgetItem(tr("Отключить канал")));
    // timer->start(1000);
 
     ui->tableWidget->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
@@ -229,6 +230,10 @@ void MainWindow::on_dev_info_responsed(void)
        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, new QTableWidgetItem(tr("Канал ")+str.setNum(i)));
        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 4, new QTableWidgetItem());
+
+
+       ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 12,new QCheckBox());
+       QCheckBox *chkbox=qobject_cast<QCheckBox *>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-1, 12));
 
        switch(/*p_uso->DEV->channel_type[i-1]>>4&0xF*/p_uso->DEV->channel_mas[i-1]->channel_type>>4&0xF)
        {

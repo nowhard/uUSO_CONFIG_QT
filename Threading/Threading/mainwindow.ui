@@ -265,7 +265,7 @@
       <number>0</number>
      </property>
      <property name="columnCount">
-      <number>12</number>
+      <number>13</number>
      </property>
      <attribute name="horizontalHeaderDefaultSectionSize">
       <number>100</number>
@@ -285,6 +285,11 @@
      <attribute name="verticalHeaderShowSortIndicator" stdset="0">
       <bool>false</bool>
      </attribute>
+     <column>
+      <property name="text">
+       <string>Новый столбец</string>
+      </property>
+     </column>
      <column>
       <property name="text">
        <string>Новый столбец</string>
