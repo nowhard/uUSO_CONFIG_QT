@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
      read_flag=false;
 
 
-
+    CalibrList.clear();
      UnactiveInterface();
 }
 
@@ -240,6 +240,10 @@ void MainWindow::on_dev_info_responsed(void)
        case 0x0:
            {
                adc_chn_num++;
+               CalibrList.append(new CalibrPoints);
+
+               qDebug()<<"VECTOR="<<CalibrList.size();
+
 
                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, new QTableWidgetItem(tr("Аналоговый")));
                ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 2,new QComboBox());
@@ -301,7 +305,7 @@ void MainWindow::on_dev_info_responsed(void)
                     qDebug()<<(p_uso->DEV->channel_mas[i-1]->channel_type&0xF);
                }
 
-               CalibrList.append(new CalibrPoints);
+
            }
            break;
        case 0x1:
@@ -449,8 +453,7 @@ void MainWindow::on_calibrate_0_button_clicked()//кнопки калибровки в таблице
 
     qDebug() << "CNOCK min"<<name<<" "<<spin->value();
 
-  //  p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),0,spin->value());
-
+    qDebug() <<CalibrList.size();
     CalibrList[name.toInt()]->first_point_x=ui->tableWidget->item(name.toInt(),4)->text().toLong();
     CalibrList[name.toInt()]->first_point_y=spin->value();
 
