@@ -52,7 +52,8 @@ public:
   CHANNEL_ALL_GET_DATA_RESP_=		 0x15, //Выдать информацию по всем каналам узла (расширенный режим);
 
   CHANNEL_SET_ADDRESS_DESC_=		 0xCD, //установить адрес, имя, описание и т.д.
-  CHANNEL_SET_CALIBRATE_=                0xCA,//установить калибровку каналов
+  CHANNEL_SET_CALIBRATE_=            0xCA,//установить калибровку каналов
+  CHANNEL_SET_ALL_DEFAULT_=    		 0xDF, //сбросить настройки и калибровки по умолчанию
 
   REQUEST_ERROR_=			 0xFF//Ошибочный запрос/ответ;
 };//перечисление функций протокола
@@ -108,6 +109,7 @@ public slots:
 
     void CHANNEL_SET_CALIBRATE(quint8 dev_addr,quint8 channel, char mode,float K, float C);//запрос на калибровку минимума-максимума
 
+    void CHANNEL_SET_ALL_DEFAULT(quint8 dev_addr);//сбросить настройки и калибровки по умолчанию
 private slots:
     void ResponseHandling(QByteArray response);
 private:

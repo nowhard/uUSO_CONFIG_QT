@@ -579,3 +579,10 @@ void MainWindow::on_calibrate_set_button_clicked()
    qDebug() << "CNOCK SET"<<name<<" "<<K<<" "<<C;
     p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),0,K,C);
 }
+
+
+
+void MainWindow::on_action_Set_Settings_Default_triggered()
+{
+    p_uso->CHANNEL_SET_ALL_DEFAULT(ui->comboBox_5->currentText().toInt());
+}

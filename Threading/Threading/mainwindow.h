@@ -110,6 +110,7 @@ private slots:
     void on_menu_load_settings_clicked();
     void on_menu_save_settings_clicked();
 
+    void on_action_Set_Settings_Default_triggered();
 };
 
 

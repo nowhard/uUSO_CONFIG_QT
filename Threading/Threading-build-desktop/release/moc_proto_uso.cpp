@@ -1,8 +1,8 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'proto_uso.h'
 **
-** Created: Tue 10. Apr 09:15:45 2012
-**      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
+** Created: Tue 14. May 12:07:50 2013
+**      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -10,8 +10,8 @@
 #include "../../Threading/proto_uso.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'proto_uso.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 62
-#error "This file was generated using the moc from 4.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 63
+#error "This file was generated using the moc from 4.8.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -20,10 +20,10 @@ QT_BEGIN_MOC_NAMESPACE
 static const uint qt_meta_data_proto_uso[] = {
 
  // content:
-       5,       // revision
+       6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -45,7 +45,8 @@ static const uint qt_meta_data_proto_uso[] = {
      410,  128,   10,   10, 0x0a,
      463,  436,   10,   10, 0x0a,
      537,  511,   10,   10, 0x0a,
-     591,  128,   10,   10, 0x08,
+     591,   95,   10,   10, 0x0a,
+     623,  128,   10,   10, 0x08,
 
        0        // eod
 };
@@ -66,12 +67,42 @@ static const char qt_meta_stringdata_proto_uso[] = {
     "CHANNEL_SET_CALIBRATE(quint8,quint8,char,ulong)\0"
     "dev_addr,channel,mode,K,C\0"
     "CHANNEL_SET_CALIBRATE(quint8,quint8,char,float,float)\0"
+    "CHANNEL_SET_ALL_DEFAULT(quint8)\0"
     "ResponseHandling(QByteArray)\0"
+};
+
+void proto_uso::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        proto_uso *_t = static_cast<proto_uso *>(_o);
+        switch (_id) {
+        case 0: _t->WriteToOut_Thread((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 1: _t->DEV_INFO_RESPONSED(); break;
+        case 2: _t->GET_ALL_DATA_RESPONSED(); break;
+        case 3: _t->GET_DEV_INFO_REQ((*reinterpret_cast< qint8(*)>(_a[1]))); break;
+        case 4: _t->GET_DEV_INFO_RESP((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 5: _t->CHANNEL_SET_PARAMETERS_REQ((*reinterpret_cast< qint8(*)>(_a[1])),(*reinterpret_cast< CHANNEL*(*)[]>(_a[2]))); break;
+        case 6: _t->CHANNEL_ALL_GET_DATA_REQ((*reinterpret_cast< qint8(*)>(_a[1]))); break;
+        case 7: _t->CHANNEL_ALL_GET_DATA_RESP((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 8: _t->CHANNEL_SET_ADDRESS_DESC((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QByteArray(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5]))); break;
+        case 9: _t->REQUEST_ERROR((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 10: _t->CHANNEL_SET_CALIBRATE((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< ulong(*)>(_a[4]))); break;
+        case 11: _t->CHANNEL_SET_CALIBRATE((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
+        case 12: _t->CHANNEL_SET_ALL_DEFAULT((*reinterpret_cast< quint8(*)>(_a[1]))); break;
+        case 13: _t->ResponseHandling((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        default: ;
+        }
+    }
+}
+
+const QMetaObjectExtraData proto_uso::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
 };
 
 const QMetaObject proto_uso::staticMetaObject = {
     { &QObject::staticMetaObject, qt_meta_stringdata_proto_uso,
-      qt_meta_data_proto_uso, 0 }
+      qt_meta_data_proto_uso, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
@@ -97,23 +128,9 @@ int proto_uso::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        switch (_id) {
-        case 0: WriteToOut_Thread((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 1: DEV_INFO_RESPONSED(); break;
-        case 2: GET_ALL_DATA_RESPONSED(); break;
-        case 3: GET_DEV_INFO_REQ((*reinterpret_cast< qint8(*)>(_a[1]))); break;
-        case 4: GET_DEV_INFO_RESP((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 5: CHANNEL_SET_PARAMETERS_REQ((*reinterpret_cast< qint8(*)>(_a[1])),(*reinterpret_cast< CHANNEL*(*)[]>(_a[2]))); break;
-        case 6: CHANNEL_ALL_GET_DATA_REQ((*reinterpret_cast< qint8(*)>(_a[1]))); break;
-        case 7: CHANNEL_ALL_GET_DATA_RESP((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 8: CHANNEL_SET_ADDRESS_DESC((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QByteArray(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5]))); break;
-        case 9: REQUEST_ERROR((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 10: CHANNEL_SET_CALIBRATE((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< ulong(*)>(_a[4]))); break;
-        case 11: CHANNEL_SET_CALIBRATE((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
-        case 12: ResponseHandling((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        default: ;
-        }
-        _id -= 13;
+        if (_id < 14)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 14;
     }
     return _id;
 }

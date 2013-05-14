@@ -527,6 +527,7 @@
     <addaction name="action_COM"/>
     <addaction name="action_SAVE"/>
     <addaction name="action_LOAD"/>
+    <addaction name="action_Set_Settings_Default"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -564,6 +565,11 @@
   <action name="action_LOAD">
    <property name="text">
     <string>Загрузить настройки</string>
+   </property>
+  </action>
+  <action name="action_Set_Settings_Default">
+   <property name="text">
+    <string>Сброс настроек</string>
    </property>
   </action>
  </widget>

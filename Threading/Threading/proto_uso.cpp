@@ -422,3 +422,25 @@ void proto_uso::CHANNEL_SET_CALIBRATE(quint8 dev_addr,quint8 channel, char mode,
      qDebug("DATA REQUESTED!!!");
     return;
 }
+
+void proto_uso::CHANNEL_SET_ALL_DEFAULT(quint8 dev_addr)//сбросить настройки и калибровки по умолчанию
+{
+    QByteArray request,set_request;
+    quint8 CRC;
+    //unsigned char mmax;
+
+    request.append((char)0x0);
+    request.append((char)0xD7);
+    request.append((char)0x29);//заголовок кадра
+    request.append(dev_addr);
+    request.append(CHANNEL_SET_ALL_DEFAULT_);
+    request.append((char)0x1);
+    CRC=CRC8(request,request.length());
+    request.append(CRC);
+
+    qDebug()<<request.toHex();
+
+     emit this->WriteToOut_Thread(request);
+     qDebug("DATA REQUESTED!!!");
+    return;
+}

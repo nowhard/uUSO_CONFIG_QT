@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 2. Apr 13:21:39 2013
+** Created: Tue 14. May 12:07:33 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -38,6 +38,7 @@ public:
     QAction *action;
     QAction *action_SAVE;
     QAction *action_LOAD;
+    QAction *action_Set_Settings_Default;
     QWidget *centralWidget;
     QGroupBox *groupBox;
     QPushButton *pushButton;
@@ -90,6 +91,8 @@ public:
         action_SAVE->setObjectName(QString::fromUtf8("action_SAVE"));
         action_LOAD = new QAction(MainWindow);
         action_LOAD->setObjectName(QString::fromUtf8("action_LOAD"));
+        action_Set_Settings_Default = new QAction(MainWindow);
+        action_Set_Settings_Default->setObjectName(QString::fromUtf8("action_Set_Settings_Default"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         groupBox = new QGroupBox(centralWidget);
@@ -223,6 +226,7 @@ public:
         menu->addAction(action_COM);
         menu->addAction(action_SAVE);
         menu->addAction(action_LOAD);
+        menu->addAction(action_Set_Settings_Default);
         menu_2->addAction(action);
 
         retranslateUi(MainWindow);
@@ -237,6 +241,7 @@ public:
         action->setText(QApplication::translate("MainWindow", "\320\236 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\320\265", 0, QApplication::UnicodeUTF8));
         action_SAVE->setText(QApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\275\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", 0, QApplication::UnicodeUTF8));
         action_LOAD->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\263\321\200\321\203\320\267\320\270\321\202\321\214 \320\275\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", 0, QApplication::UnicodeUTF8));
+        action_Set_Settings_Default->setText(QApplication::translate("MainWindow", "\320\241\320\261\321\200\320\276\321\201 \320\275\320\260\321\201\321\202\321\200\320\276\320\265\320\272", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         label_16->setText(QApplication::translate("MainWindow", "\320\220\320\264\321\200\320\265\321\201 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
