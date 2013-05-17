@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 14. May 12:07:33 2013
+** Created: Fri 17. May 15:24:04 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,7 +14,6 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
-#include <QtGui/QComboBox>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -39,15 +38,12 @@ public:
     QAction *action_SAVE;
     QAction *action_LOAD;
     QAction *action_Set_Settings_Default;
+    QAction *action_connect;
+    QAction *action_set_chn_settings;
+    QAction *action_dev_polling;
     QWidget *centralWidget;
-    QGroupBox *groupBox;
-    QPushButton *pushButton;
-    QLabel *label_16;
-    QComboBox *comboBox_5;
     QGroupBox *groupBox_3;
     QTableWidget *tableWidget;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_3;
     QGroupBox *groupBox_4;
     QPushButton *pushButton_2;
     QLabel *label;
@@ -62,6 +58,7 @@ public:
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
+    QMenu *menu_3;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -93,36 +90,20 @@ public:
         action_LOAD->setObjectName(QString::fromUtf8("action_LOAD"));
         action_Set_Settings_Default = new QAction(MainWindow);
         action_Set_Settings_Default->setObjectName(QString::fromUtf8("action_Set_Settings_Default"));
+        action_connect = new QAction(MainWindow);
+        action_connect->setObjectName(QString::fromUtf8("action_connect"));
+        action_set_chn_settings = new QAction(MainWindow);
+        action_set_chn_settings->setObjectName(QString::fromUtf8("action_set_chn_settings"));
+        action_dev_polling = new QAction(MainWindow);
+        action_dev_polling->setObjectName(QString::fromUtf8("action_dev_polling"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        groupBox = new QGroupBox(centralWidget);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(10, 10, 191, 151));
-        pushButton = new QPushButton(groupBox);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setEnabled(true);
-        pushButton->setGeometry(QRect(60, 60, 75, 23));
-        QPalette palette;
-        QBrush brush(QColor(52, 212, 28, 255));
-        brush.setStyle(Qt::SolidPattern);
-        palette.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        pushButton->setPalette(palette);
-        pushButton->setCheckable(false);
-        label_16 = new QLabel(groupBox);
-        label_16->setObjectName(QString::fromUtf8("label_16"));
-        label_16->setGeometry(QRect(10, 20, 91, 16));
-        comboBox_5 = new QComboBox(groupBox);
-        comboBox_5->setObjectName(QString::fromUtf8("comboBox_5"));
-        comboBox_5->setGeometry(QRect(120, 20, 51, 22));
-        comboBox_5->setMaxVisibleItems(15);
         groupBox_3 = new QGroupBox(centralWidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
         groupBox_3->setGeometry(QRect(10, 170, 931, 401));
         tableWidget = new QTableWidget(groupBox_3);
-        if (tableWidget->columnCount() < 13)
-            tableWidget->setColumnCount(13);
+        if (tableWidget->columnCount() < 12)
+            tableWidget->setColumnCount(12);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -137,10 +118,8 @@ public:
         tableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(10, 20, 911, 331));
+        tableWidget->setGeometry(QRect(10, 20, 911, 371));
         tableWidget->setMouseTracking(false);
         tableWidget->setFrameShape(QFrame::NoFrame);
         tableWidget->setFrameShadow(QFrame::Raised);
@@ -152,23 +131,17 @@ public:
         tableWidget->setWordWrap(false);
         tableWidget->setCornerButtonEnabled(true);
         tableWidget->setRowCount(0);
-        tableWidget->setColumnCount(13);
+        tableWidget->setColumnCount(12);
         tableWidget->horizontalHeader()->setDefaultSectionSize(100);
         tableWidget->verticalHeader()->setVisible(false);
         tableWidget->verticalHeader()->setCascadingSectionResizes(false);
         tableWidget->verticalHeader()->setHighlightSections(true);
         tableWidget->verticalHeader()->setMinimumSectionSize(20);
         tableWidget->verticalHeader()->setProperty("showSortIndicator", QVariant(false));
-        pushButton_4 = new QPushButton(groupBox_3);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(30, 360, 181, 23));
-        pushButton_3 = new QPushButton(groupBox_3);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(420, 360, 151, 23));
         groupBox_4 = new QGroupBox(centralWidget);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
         groupBox_4->setEnabled(true);
-        groupBox_4->setGeometry(QRect(210, 10, 361, 151));
+        groupBox_4->setGeometry(QRect(10, 10, 561, 151));
         pushButton_2 = new QPushButton(groupBox_4);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(70, 120, 91, 21));
@@ -213,6 +186,8 @@ public:
         menu->setObjectName(QString::fromUtf8("menu"));
         menu_2 = new QMenu(menuBar);
         menu_2->setObjectName(QString::fromUtf8("menu_2"));
+        menu_3 = new QMenu(menuBar);
+        menu_3->setObjectName(QString::fromUtf8("menu_3"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -222,12 +197,15 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menu->menuAction());
+        menuBar->addAction(menu_3->menuAction());
         menuBar->addAction(menu_2->menuAction());
+        menu->addAction(action_connect);
         menu->addAction(action_COM);
-        menu->addAction(action_SAVE);
-        menu->addAction(action_LOAD);
-        menu->addAction(action_Set_Settings_Default);
-        menu_2->addAction(action);
+        menu_2->addAction(action_Set_Settings_Default);
+        menu_2->addAction(action_SAVE);
+        menu_2->addAction(action_LOAD);
+        menu_2->addAction(action_set_chn_settings);
+        menu_3->addAction(action_dev_polling);
 
         retranslateUi(MainWindow);
 
@@ -242,27 +220,9 @@ public:
         action_SAVE->setText(QApplication::translate("MainWindow", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214 \320\275\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", 0, QApplication::UnicodeUTF8));
         action_LOAD->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\263\321\200\321\203\320\267\320\270\321\202\321\214 \320\275\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\270", 0, QApplication::UnicodeUTF8));
         action_Set_Settings_Default->setText(QApplication::translate("MainWindow", "\320\241\320\261\321\200\320\276\321\201 \320\275\320\260\321\201\321\202\321\200\320\276\320\265\320\272", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
-        label_16->setText(QApplication::translate("MainWindow", "\320\220\320\264\321\200\320\265\321\201 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
-        comboBox_5->clear();
-        comboBox_5->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "2", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "3", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "4", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "5", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "6", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "7", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "8", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "9", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "10", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "11", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "12", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "13", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "14", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "15", 0, QApplication::UnicodeUTF8)
-        );
+        action_connect->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\270\321\202\321\214 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\276", 0, QApplication::UnicodeUTF8));
+        action_set_chn_settings->setText(QApplication::translate("MainWindow", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214 \320\277\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", 0, QApplication::UnicodeUTF8));
+        action_dev_polling->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\260\321\202\321\214 \320\276\320\277\321\200\320\276\321\201 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
         groupBox_3->setTitle(QApplication::translate("MainWindow", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
@@ -278,10 +238,6 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
-        QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
-        ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));
-        pushButton_4->setText(QApplication::translate("MainWindow", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214 \320\277\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", 0, QApplication::UnicodeUTF8));
-        pushButton_3->setText(QApplication::translate("MainWindow", "\320\227\320\260\320\277\321\203\321\201\321\202\320\270\321\202\321\214 \321\201\320\261\320\276\321\200 \320\264\320\260\320\275\320\275\321\213\321\205", 0, QApplication::UnicodeUTF8));
         groupBox_4->setTitle(QApplication::translate("MainWindow", "\320\236\320\261\321\211\320\260\321\217 \320\270\320\275\321\204\320\276\321\200\320\274\320\260\321\206\320\270\321\217 \320\276\320\261 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\265", 0, QApplication::UnicodeUTF8));
         pushButton_2->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\273\321\203\321\207\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
@@ -289,8 +245,9 @@ public:
         label_5->setText(QApplication::translate("MainWindow", "\320\222\320\265\321\200\321\201\320\270\321\217", 0, QApplication::UnicodeUTF8));
         pushButton_5->setText(QApplication::translate("MainWindow", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         label_7->setText(QApplication::translate("MainWindow", "\320\220\320\264\321\200\320\265\321\201", 0, QApplication::UnicodeUTF8));
-        menu->setTitle(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260", 0, QApplication::UnicodeUTF8));
-        menu_2->setTitle(QApplication::translate("MainWindow", "\320\237\320\276\320\274\320\276\321\211\321\214", 0, QApplication::UnicodeUTF8));
+        menu->setTitle(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
+        menu_2->setTitle(QApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
+        menu_3->setTitle(QApplication::translate("MainWindow", "\320\236\320\277\321\200\320\276\321\201 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

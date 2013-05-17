@@ -10,7 +10,9 @@
 #include "proto_uso.h"
 
 #include "dialog_com.h"
+#include "connect_dialog.h"
 #include "ui_dialog_com.h"
+
 #include "delegate.h"
 #include <QTextCodec>
 #include <QStringList>
@@ -65,29 +67,26 @@ private:
 
     //---------------------
     Dialog_com com_dlg;
+    connect_dialog *connect_dlg;
 
-  //  quint16 query_counter;
-  //  bool read_reg_flag;
-  //  quint8 addr_counter;
     bool read_flag;
     QStringList strlist, bitlist;
-    CHANNEL *chnl[11];
+    CHANNEL *chnl[20];
     QVector<CalibrPoints*> CalibrList;
+
+    quint8 device_addr;
 
 private slots:
 
     void on_pushButton_5_clicked();
-    void on_pushButton_4_clicked();
-    void on_pushButton_3_clicked();
     void on_pushButton_2_clicked();
     void on_action_COM_triggered();
 
-    void on_pushButton_clicked();
+
     void on_dev_info_responsed(void);
     void on_dev_get_data_responsed(void);
-  //  void on_Reg_Read(QByteArray registers);
-   // void on_Reg_Read(MB_Register reg,QByteArray registers);
 
+    void on_connect_device(quint8 dev_addr);
 
     void MessageReadOK(bool mess);
     void MessageWriteOK(bool mess);
@@ -111,6 +110,9 @@ private slots:
     void on_menu_save_settings_clicked();
 
     void on_action_Set_Settings_Default_triggered();
+    void on_action_connect_triggered();
+    void on_action_set_chn_settings_triggered();
+    void on_action_dev_polling_triggered();
 };
 
 

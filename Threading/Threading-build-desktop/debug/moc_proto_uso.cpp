@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'proto_uso.h'
 **
-** Created: Mon 1. Apr 12:47:34 2013
+** Created: Fri 17. May 14:25:59 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_proto_uso[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -45,7 +45,8 @@ static const uint qt_meta_data_proto_uso[] = {
      410,  128,   10,   10, 0x0a,
      463,  436,   10,   10, 0x0a,
      537,  511,   10,   10, 0x0a,
-     591,  128,   10,   10, 0x08,
+     591,   95,   10,   10, 0x0a,
+     623,  128,   10,   10, 0x08,
 
        0        // eod
 };
@@ -66,6 +67,7 @@ static const char qt_meta_stringdata_proto_uso[] = {
     "CHANNEL_SET_CALIBRATE(quint8,quint8,char,ulong)\0"
     "dev_addr,channel,mode,K,C\0"
     "CHANNEL_SET_CALIBRATE(quint8,quint8,char,float,float)\0"
+    "CHANNEL_SET_ALL_DEFAULT(quint8)\0"
     "ResponseHandling(QByteArray)\0"
 };
 
@@ -87,7 +89,8 @@ void proto_uso::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 9: _t->REQUEST_ERROR((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
         case 10: _t->CHANNEL_SET_CALIBRATE((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< ulong(*)>(_a[4]))); break;
         case 11: _t->CHANNEL_SET_CALIBRATE((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2])),(*reinterpret_cast< char(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
-        case 12: _t->ResponseHandling((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 12: _t->CHANNEL_SET_ALL_DEFAULT((*reinterpret_cast< quint8(*)>(_a[1]))); break;
+        case 13: _t->ResponseHandling((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -125,9 +128,9 @@ int proto_uso::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

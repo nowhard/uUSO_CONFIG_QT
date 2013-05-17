@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget->setHorizontalHeaderItem(10, new QTableWidgetItem(tr("Установить")));
 
     ui->tableWidget->setHorizontalHeaderItem(11, new QTableWidgetItem(tr("Разрядность")));
-    ui->tableWidget->setHorizontalHeaderItem(12, new QTableWidgetItem(tr("Отключить канал")));
+  //  ui->tableWidget->setHorizontalHeaderItem(12, new QTableWidgetItem(tr("Отключить канал")));
    // timer->start(1000);
 
     ui->tableWidget->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
@@ -40,7 +40,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
      connect(timer,SIGNAL(timeout()),this,SLOT(Get_All_Data()));
 
-     for(quint8 i=0;i<12;i++)
+
+     connect_dlg=new connect_dialog();
+     connect(connect_dlg,SIGNAL(connect_device(quint8)),this,SLOT(on_connect_device(quint8)));
+
+
+     for(quint8 i=0;i<20;i++)
      {
           chnl[i]=new CHANNEL();
      }
@@ -64,77 +69,6 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
-{
-   if(!port->isOpen())
-    {
-    port->setDeviceName(com_dlg.ui->comboBox->currentText());
-
-
-    if ( !port->open(AbstractSerial::ReadWrite | AbstractSerial::Unbuffered) ) {
-        qDebug() << "Serial device by default: " << port->deviceName() << " open fail.";
-        ui->statusBar->showMessage("Port Open Fail");
-        return;
-    }
-    if (!port->setBaudRate(AbstractSerial::BaudRate57600/*com_dlg.ui->comboBox_2->currentText()*/)) {
-        qDebug() << "Set baud rate  error.";
-        return;
-    };
-
-    if (!port->setDataBits(AbstractSerial::DataBits8)) {
-        qDebug() << "Set data bits " <<  AbstractSerial::DataBits8 << " error.";
-        return;
-    }
-    if (!port->setParity(AbstractSerial::ParityNone)) {
-        qDebug() << "Set parity " <<  AbstractSerial::ParityNone << " error.";
-        return;
-    }
-
-   if(com_dlg.ui->radioButton->isChecked())
-    {
-        if (!port->setStopBits(AbstractSerial::StopBits1)) {
-            qDebug() << "Set stop bits " <<  AbstractSerial::StopBits1 << " error.";
-            return;
-        }
-    }
-   else
-   {
-       if (!port->setStopBits(AbstractSerial::StopBits2)) {
-           qDebug() << "Set stop bits " <<  AbstractSerial::StopBits2 << " error.";
-           return;
-       }
-   }
-
-    if (!port->setFlowControl(AbstractSerial::FlowControlOff)) {
-        qDebug() << "Set flow " <<  AbstractSerial::FlowControlOff << " error.";
-        return;
-    }
-
-    if (port->openMode() & AbstractSerial::Unbuffered)
-        port->setTotalReadConstantTimeout(10);
-
-     //port->setCharIntervalTimeout(int((8*1000000/com_dlg.ui->comboBox_2->currentText().toInt())));
-
-    ui->pushButton->setText(tr("Отключить"));
-
-     //timer->start(30);
-
-     qDebug() << "Serial device : " << port->deviceName() << " opened!!!.";
-     qDebug() << "Serial device baudrate : " << port->baudRate() ;
-     qDebug() << "Serial device databits : " << port->dataBits() ;
-     qDebug() << "Serial device stopbits : " << port->stopBits() ;
-     qDebug() << "Serial device flowcontrol : " << port->flowControl() ;
-
-     ActivateInterface();
- }
-else
-   {
-        port->close();
-        ui->pushButton->setText(tr("Подключить"));
-        UnactiveInterface();
-         //timer->stop();
-    }
-}
 
 
 void MainWindow::on_action_COM_triggered()
@@ -204,7 +138,7 @@ void MainWindow::Info_Is_Set(bool OK)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    p_uso->GET_DEV_INFO_REQ(ui->comboBox_5->currentText().toInt());
+    p_uso->GET_DEV_INFO_REQ(device_addr);
 }
 
 
@@ -232,8 +166,8 @@ void MainWindow::on_dev_info_responsed(void)
        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 4, new QTableWidgetItem());
 
 
-       ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 12,new QCheckBox());
-       QCheckBox *chkbox=qobject_cast<QCheckBox *>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-1, 12));
+     //  ui->tableWidget->setCellWidget(ui->tableWidget->rowCount()-1, 12,new QCheckBox());
+    //   QCheckBox *chkbox=qobject_cast<QCheckBox *>(ui->tableWidget->cellWidget(ui->tableWidget->rowCount()-1, 12));
 
        switch(/*p_uso->DEV->channel_type[i-1]>>4&0xF*/p_uso->DEV->channel_mas[i-1]->channel_type>>4&0xF)
        {
@@ -338,24 +272,6 @@ void MainWindow::on_dev_info_responsed(void)
     return;
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{
-    //p_uso->CHANNEL_ALL_GET_DATA_REQ(ui->comboBox_5->currentText().toInt());
-    if(!read_flag)
-    {
-        timer->start(100);
-        //Get_All_Data();//debug
-        read_flag=true;
-        ui->pushButton_3->setText(tr("Остановить сбор данных"));
-    }
-    else
-    {
-        timer->stop();
-        read_flag=false;
-        ui->pushButton_3->setText(tr("Запустить сбор данных"));
-    }
-    return;
-}
 
 void MainWindow::on_dev_get_data_responsed(void)
 {
@@ -379,54 +295,19 @@ void MainWindow::on_dev_get_data_responsed(void)
 
 void MainWindow::Get_All_Data(void)
 {
-    p_uso->CHANNEL_ALL_GET_DATA_REQ(ui->comboBox_5->currentText().toInt());
+    p_uso->CHANNEL_ALL_GET_DATA_REQ(device_addr);
 
     //timer->stop();
     return;
 }
 
-void MainWindow::on_pushButton_4_clicked()
-{
-    for(quint8 i=0;i<adc_chn_num/*ui->tableWidget->rowCount()p_uso->DEV->channel_num*/;i++)
-    {
-        if(i<8)//настройки по аналоговым каналам
-        {
 
-            QComboBox *cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(i, 11));
-           if(cmb->currentIndex()==0)
-           {
-                chnl[i]->channel_type=0x3;//p_uso->CHN_ADC|0x3;
-           }
-           if(cmb->currentIndex()==1)
-           {
-               chnl[i]->channel_type=0x0;//p_uso->CHN_ADC&0xF0;
-           }
-
-           // chnl[i]->channel_type=p_uso->CHN_ADC;
-           cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(i, 2));
-            chnl[i]->state_byte1=0x40|cmb->currentIndex();
-
-            QSpinBox *spin=qobject_cast<QSpinBox *>(ui->tableWidget->cellWidget(i, 3));
-            //spin->setValue((quint8)p_uso->DEV->channel_mas[i]->state_byte2);
-            chnl[i]->state_byte2=(quint8)spin->value();
-        }
-        else//настройки по частотным каналам
-        {
-           // chnl[i]->channel_type=p_uso->CHN_COUNT;
-           // chnl[i]->state_byte1=0x40;//инициализация была
-           // chnl[i]->state_byte2=0x0A;//инициализация была
-        }
-
-    }
-    p_uso->CHANNEL_SET_PARAMETERS_REQ(ui->comboBox_5->currentText().toInt(),chnl);
-    return;
-}
 
 void MainWindow::on_pushButton_5_clicked()
 {
     QByteArray ver;
     ver.append(ui->lineEdit_4->text());
-    p_uso->CHANNEL_SET_ADDRESS_DESC(ui->comboBox_5->currentText().toInt(),ui->spinBox_2->value(),ui->lineEdit_2->text(),ver,ui->lineEdit_3->text());
+    p_uso->CHANNEL_SET_ADDRESS_DESC(device_addr,ui->spinBox_2->value(),ui->lineEdit_2->text(),ver,ui->lineEdit_3->text());
 }
 
 void MainWindow::UnactiveInterface(void)
@@ -466,7 +347,7 @@ void MainWindow::on_calibrate_full_button_clicked()//кнопки калибровки в таблице
     QString name=btn->objectName();
     QSpinBox *spin=qobject_cast<QSpinBox *>(ui->tableWidget->cellWidget(/*ui->tableWidget->rowCount()-1*/name.toInt(), 8));
     qDebug() << "CNOCK max"<<name<<" "<<spin->value();
-  //  p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),1,spin->value());
+  //  p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),1,spin->value());
 
     //CalibrList[name.toInt()]=QPointF((float),(float));
     CalibrList[name.toInt()]->second_point_x=ui->tableWidget->item(name.toInt(),4)->text().toLong();
@@ -479,15 +360,15 @@ void MainWindow::on_calibrate_flag_clicked()//установить снять флаг калибровки п
 {
     QCheckBox* chkbox=qobject_cast<QCheckBox *>(sender());
     QString name=chkbox->objectName();
-   // p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),2,chkbox->checkState());
+   // p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),2,chkbox->checkState());
 
     if(chkbox->checkState())
     {
-         p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),2,0,0);
+         p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),2,0,0);
     }
     else
     {
-         p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),1,0,0);
+         p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),1,0,0);
     }
 
     qDebug() << "CNOCK FLAG"<<name;
@@ -577,12 +458,153 @@ void MainWindow::on_calibrate_set_button_clicked()
     C=(float)CalibrList[name.toInt()]->first_point_y-(float)CalibrList[name.toInt()]->first_point_x*K;
 
    qDebug() << "CNOCK SET"<<name<<" "<<K<<" "<<C;
-    p_uso->CHANNEL_SET_CALIBRATE(ui->comboBox_5->currentText().toInt(),name.toInt(),0,K,C);
+    p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),0,K,C);
 }
 
 
 
 void MainWindow::on_action_Set_Settings_Default_triggered()
 {
-    p_uso->CHANNEL_SET_ALL_DEFAULT(ui->comboBox_5->currentText().toInt());
+    p_uso->CHANNEL_SET_ALL_DEFAULT(device_addr);
+}
+
+void MainWindow::on_action_connect_triggered()
+{
+    if(!port->isOpen())
+    {
+        connect_dlg->show();
+    }
+    else
+    {
+        port->close();
+        ui->action_connect->setText(tr("Подключить устройство"));
+        UnactiveInterface();
+    }
+}
+
+void MainWindow::on_connect_device(quint8 dev_addr)
+{
+    device_addr=dev_addr;
+    if(!port->isOpen())
+     {
+     port->setDeviceName(com_dlg.ui->comboBox->currentText());
+
+
+     if ( !port->open(AbstractSerial::ReadWrite | AbstractSerial::Unbuffered) ) {
+         qDebug() << "Serial device by default: " << port->deviceName() << " open fail.";
+         ui->statusBar->showMessage("Port Open Fail");
+         return;
+     }
+     if (!port->setBaudRate(AbstractSerial::BaudRate57600/*com_dlg.ui->comboBox_2->currentText()*/)) {
+         qDebug() << "Set baud rate  error.";
+         return;
+     };
+
+     if (!port->setDataBits(AbstractSerial::DataBits8)) {
+         qDebug() << "Set data bits " <<  AbstractSerial::DataBits8 << " error.";
+         return;
+     }
+     if (!port->setParity(AbstractSerial::ParityNone)) {
+         qDebug() << "Set parity " <<  AbstractSerial::ParityNone << " error.";
+         return;
+     }
+
+    if(com_dlg.ui->radioButton->isChecked())
+     {
+         if (!port->setStopBits(AbstractSerial::StopBits1)) {
+             qDebug() << "Set stop bits " <<  AbstractSerial::StopBits1 << " error.";
+             return;
+         }
+     }
+    else
+    {
+        if (!port->setStopBits(AbstractSerial::StopBits2)) {
+            qDebug() << "Set stop bits " <<  AbstractSerial::StopBits2 << " error.";
+            return;
+        }
+    }
+
+     if (!port->setFlowControl(AbstractSerial::FlowControlOff)) {
+         qDebug() << "Set flow " <<  AbstractSerial::FlowControlOff << " error.";
+         return;
+     }
+
+     if (port->openMode() & AbstractSerial::Unbuffered)
+         port->setTotalReadConstantTimeout(10);
+
+      //port->setCharIntervalTimeout(int((8*1000000/com_dlg.ui->comboBox_2->currentText().toInt())));
+
+
+
+      //timer->start(30);
+
+      qDebug() << "Serial device : " << port->deviceName() << " opened!!!.";
+      qDebug() << "Serial device baudrate : " << port->baudRate() ;
+      qDebug() << "Serial device databits : " << port->dataBits() ;
+      qDebug() << "Serial device stopbits : " << port->stopBits() ;
+      qDebug() << "Serial device flowcontrol : " << port->flowControl() ;
+
+      ActivateInterface();
+
+      ui->action_connect->setText(tr("Отключить устройство"));
+      p_uso->GET_DEV_INFO_REQ(device_addr);
+  }
+
+}
+
+void MainWindow::on_action_set_chn_settings_triggered()
+{
+    for(quint8 i=0;i<adc_chn_num/*ui->tableWidget->rowCount()p_uso->DEV->channel_num*/;i++)
+    {
+        if(i<8)//настройки по аналоговым каналам
+        {
+
+            QComboBox *cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(i, 11));
+           if(cmb->currentIndex()==0)
+           {
+                chnl[i]->channel_type=0x3;//p_uso->CHN_ADC|0x3;
+           }
+           if(cmb->currentIndex()==1)
+           {
+               chnl[i]->channel_type=0x0;//p_uso->CHN_ADC&0xF0;
+           }
+
+           // chnl[i]->channel_type=p_uso->CHN_ADC;
+           cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(i, 2));
+            chnl[i]->state_byte1=0x40|cmb->currentIndex();
+
+            QSpinBox *spin=qobject_cast<QSpinBox *>(ui->tableWidget->cellWidget(i, 3));
+            //spin->setValue((quint8)p_uso->DEV->channel_mas[i]->state_byte2);
+            chnl[i]->state_byte2=(quint8)spin->value();
+        }
+        else//настройки по частотным каналам
+        {
+           // chnl[i]->channel_type=p_uso->CHN_COUNT;
+           // chnl[i]->state_byte1=0x40;//инициализация была
+           // chnl[i]->state_byte2=0x0A;//инициализация была
+        }
+
+    }
+    p_uso->CHANNEL_SET_PARAMETERS_REQ(device_addr,chnl);
+    return;
+}
+
+void MainWindow::on_action_dev_polling_triggered()
+{
+    if(!read_flag)
+    {
+        timer->start(100);
+        //Get_All_Data();//debug
+        read_flag=true;
+       // ui->pushButton_3->setText(tr("Остановить сбор данных"));
+        ui->action_dev_polling->setText(tr("Остановить опрос устройства"));
+    }
+    else
+    {
+        timer->stop();
+        read_flag=false;
+       // ui->pushButton_3->setText(tr("Запустить сбор данных"));
+        ui->action_dev_polling->setText(tr("Начать опрос устройства"));
+    }
+    return;
 }
