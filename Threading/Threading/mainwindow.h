@@ -6,10 +6,12 @@
 #include <abstractserial.h>
 #include <QDebug>
 #include <QTimer>
+#include <QPushButton>
 #include "serial_io.h"
 #include "proto_uso.h"
 
 #include "dialog_com.h"
+#include "dev_info.h"
 #include "connect_dialog.h"
 #include "ui_dialog_com.h"
 
@@ -68,6 +70,9 @@ private:
     //---------------------
     Dialog_com com_dlg;
     connect_dialog *connect_dlg;
+    dev_info *d_info;
+
+
 
     bool read_flag;
     QStringList strlist, bitlist;
@@ -78,8 +83,8 @@ private:
 
 private slots:
 
-    void on_pushButton_5_clicked();
-    void on_pushButton_2_clicked();
+//    void on_pushButton_5_clicked();
+//    void on_pushButton_2_clicked();
     void on_action_COM_triggered();
 
 
@@ -113,6 +118,10 @@ private slots:
     void on_action_connect_triggered();
     void on_action_set_chn_settings_triggered();
     void on_action_dev_polling_triggered();
+    void on_action_set_dev_addr_triggered();
+
+    void on_dialog_set_dev_info(void);
+    void on_dialog_get_dev_info(void);
 };
 
 

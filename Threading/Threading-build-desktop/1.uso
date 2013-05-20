@@ -1,37 +1,37 @@
 [device]
-name=
-version=
-description=
+name=uUSO
+version=00002
+description=Mini_USO_GEOSPHERE
 address=1
 
 [channel_0]
 diapason=0
-filter=9
+filter=10
 
 [channel_1]
 diapason=0
-filter=5
+filter=20
 
 [channel_2]
 diapason=0
-filter=3
+filter=30
 
 [channel_3]
 diapason=0
-filter=3
+filter=30
 
 [channel_4]
 diapason=0
-filter=6
+filter=30
 
 [channel_5]
 diapason=0
-filter=6
+filter=30
 
 [channel_6]
 diapason=0
-filter=5
+filter=30
 
 [channel_7]
 diapason=0
-filter=11
+filter=30

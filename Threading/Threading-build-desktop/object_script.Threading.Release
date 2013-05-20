@@ -6,10 +6,12 @@ INPUT(
 ./release/dialog_com.o
 ./release/proto_uso.o
 ./release/connect_dialog.o
+./release/dev_info.o
 ./release/moc_mainwindow.o
 ./release/moc_input_thread.o
 ./release/moc_output_thread.o
 ./release/moc_dialog_com.o
 ./release/moc_proto_uso.o
 ./release/moc_connect_dialog.o
+./release/moc_dev_info.o
 );

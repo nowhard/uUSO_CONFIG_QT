@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     output_thread.cpp \
     dialog_com.cpp \
     proto_uso.cpp \
-    connect_dialog.cpp
+    connect_dialog.cpp \
+    dev_info.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -24,11 +25,13 @@ HEADERS  += mainwindow.h \
     output_thread.h \
     dialog_com.h \
     proto_uso.h \
-    connect_dialog.h
+    connect_dialog.h \
+    dev_info.h
 
 FORMS    += mainwindow.ui \
     dialog_com.ui \
-    connect_dialog.ui
+    connect_dialog.ui \
+    dev_info.ui
 
 INCLUDEPATH += ./serial_src/qserialdevice
 INCLUDEPATH += ./serial_src/qserialdeviceenumerator

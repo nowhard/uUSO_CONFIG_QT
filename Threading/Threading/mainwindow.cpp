@@ -56,24 +56,26 @@ MainWindow::MainWindow(QWidget *parent) :
      read_flag=false;
 
 
-    CalibrList.clear();
+     d_info=new dev_info(this);//диалог информации об устройстве
+     connect(d_info,SIGNAL(get_dev_info()),this,SLOT(on_dialog_get_dev_info()));
+     connect(d_info,SIGNAL(set_dev_info()),this,SLOT(on_dialog_set_dev_info()));
+
+     CalibrList.clear();
      UnactiveInterface();
 }
 
 MainWindow::~MainWindow()
 {
-
     port->close();
     delete port;
     delete ui;
 }
 
 
-
-
 void MainWindow::on_action_COM_triggered()
 {
     com_dlg.show();
+
 }
 
 void MainWindow::MessageReadOK(bool mess)
@@ -136,20 +138,28 @@ void MainWindow::Info_Is_Set(bool OK)
 }
 
 
-void MainWindow::on_pushButton_2_clicked()
-{
-    p_uso->GET_DEV_INFO_REQ(device_addr);
-}
+//void MainWindow::on_pushButton_2_clicked()
+//{
+//    p_uso->GET_DEV_INFO_REQ(device_addr);
+//}
 
 
 void MainWindow::on_dev_info_responsed(void)
 {
    QString str;
    quint8 i;
-   ui->lineEdit_2->setText(p_uso->DEV->device_name);
-   ui->lineEdit_3->setText(p_uso->DEV->notice);
-   ui->lineEdit_4->setText(str.append(p_uso->DEV->version));
+//   ui->lineEdit_2->setText(p_uso->DEV->device_name);
+//   ui->lineEdit_3->setText(p_uso->DEV->notice);
+//   ui->lineEdit_4->setText(str.append(p_uso->DEV->version));
+
+
     qDebug()<<str;
+    //d_info.ui->lineEdit_2->setText(p_uso->DEV->device_name);
+
+    d_info->set_dev_name_text(p_uso->DEV->device_name);
+    d_info->set_dev_descr_text(p_uso->DEV->notice);
+    d_info->set_dev_ver_text(str.append(p_uso->DEV->version));
+
 
     /*for(i=0;i<ui->tableWidget->rowCount();i++)
     {
@@ -303,16 +313,16 @@ void MainWindow::Get_All_Data(void)
 
 
 
-void MainWindow::on_pushButton_5_clicked()
-{
-    QByteArray ver;
-    ver.append(ui->lineEdit_4->text());
-    p_uso->CHANNEL_SET_ADDRESS_DESC(device_addr,ui->spinBox_2->value(),ui->lineEdit_2->text(),ver,ui->lineEdit_3->text());
-}
+//void MainWindow::on_pushButton_5_clicked()
+//{
+//    QByteArray ver;
+//    ver.append(ui->lineEdit_4->text());
+//    p_uso->CHANNEL_SET_ADDRESS_DESC(device_addr,ui->spinBox_2->value(),ui->lineEdit_2->text(),ver,ui->lineEdit_3->text());
+//}
 
 void MainWindow::UnactiveInterface(void)
 {
-    ui->groupBox_4->setEnabled(false);
+    //ui->groupBox_4->setEnabled(false);
     ui->groupBox_3->setEnabled(false);
     ui->action_SAVE->setVisible(false);
     ui->action_LOAD->setVisible(false);
@@ -320,7 +330,7 @@ void MainWindow::UnactiveInterface(void)
 
 void MainWindow::ActivateInterface(void)
 {
-    ui->groupBox_4->setEnabled(true);
+    //ui->groupBox_4->setEnabled(true);
     ui->groupBox_3->setEnabled(true);
 }
 
@@ -386,10 +396,15 @@ void MainWindow::on_menu_load_settings_clicked()
     QSettings *settings = new QSettings(/*"settings.conf"*/s,QSettings::IniFormat);
    // settings->clear();
 
-    ui->lineEdit_2->setText(settings->value("device/name","").toString());  //устанавливаем значение
-    ui->lineEdit_4->setText(settings->value("device/version","").toString());  //устанавливаем значение
-    ui->lineEdit_3->setText(settings->value("device/description","").toString());  //устанавливаем значение
-    ui->spinBox_2->setValue(settings->value("device/address","").toInt());  //устанавливаем значение
+//    ui->lineEdit_2->setText(settings->value("device/name","").toString());  //устанавливаем значение
+//    ui->lineEdit_4->setText(settings->value("device/version","").toString());  //устанавливаем значение
+//    ui->lineEdit_3->setText(settings->value("device/description","").toString());  //устанавливаем значение
+//    ui->spinBox_2->setValue(settings->value("device/address","").toInt());  //устанавливаем значение
+
+     d_info->set_dev_name_text(settings->value("device/name","").toString());
+     d_info->set_dev_ver_text(settings->value("device/version","").toString());
+     d_info->set_dev_descr_text(settings->value("device/description","").toString());
+     d_info->set_dev_addr(settings->value("device/address","").toInt());
 
    /* settings->setValue("device/version",ui->lineEdit_4->text());  //устанавливаем значение
     settings->setValue("device/description",ui->lineEdit_3->text());  //устанавливаем значение
@@ -423,10 +438,16 @@ void MainWindow::on_menu_save_settings_clicked()
     QSettings *settings = new QSettings(/*"settings.conf"*/s,QSettings::IniFormat);
     settings->clear();
 
-    settings->setValue("device/name",ui->lineEdit_2->text());  //устанавливаем значение
-    settings->setValue("device/version",ui->lineEdit_4->text());  //устанавливаем значение
-    settings->setValue("device/description",ui->lineEdit_3->text());  //устанавливаем значение
-    settings->setValue("device/address",ui->spinBox_2->value());  //устанавливаем значение
+//    settings->setValue("device/name",ui->lineEdit_2->text());  //устанавливаем значение
+//    settings->setValue("device/version",ui->lineEdit_4->text());  //устанавливаем значение
+//    settings->setValue("device/description",ui->lineEdit_3->text());  //устанавливаем значение
+//    settings->setValue("device/address",ui->spinBox_2->value());  //устанавливаем значение
+
+    settings->setValue("device/name",d_info->get_dev_name_text());  //устанавливаем значение
+    settings->setValue("device/version",d_info->get_dev_ver_text());  //устанавливаем значение
+    settings->setValue("device/description",d_info->get_dev_descr_text());  //устанавливаем значение
+    settings->setValue("device/address",d_info->get_dev_addr());  //устанавливаем значение
+
 
     for(quint8 i=0;i<ui->tableWidget->rowCount();i++)
     {
@@ -607,4 +628,22 @@ void MainWindow::on_action_dev_polling_triggered()
         ui->action_dev_polling->setText(tr("Начать опрос устройства"));
     }
     return;
+}
+
+void MainWindow::on_action_set_dev_addr_triggered()
+{
+    d_info->show();
+}
+
+
+void MainWindow::on_dialog_set_dev_info(void)
+{
+    QByteArray ver;
+    ver.append(d_info->get_dev_ver_text());
+    p_uso->CHANNEL_SET_ADDRESS_DESC(device_addr,d_info->get_dev_addr(),d_info->get_dev_name_text(),ver,d_info->get_dev_descr_text());
+}
+
+void MainWindow::on_dialog_get_dev_info(void)
+{
+     p_uso->GET_DEV_INFO_REQ(device_addr);
 }
