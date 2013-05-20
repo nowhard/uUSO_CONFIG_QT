@@ -160,6 +160,11 @@ void MainWindow::on_dev_info_responsed(void)
     d_info->set_dev_descr_text(p_uso->DEV->notice);
     d_info->set_dev_ver_text(str.append(p_uso->DEV->version));
 
+    ui->label_5->setText(p_uso->DEV->device_name);
+    str="";
+    ui->label_6->setText(str.append(p_uso->DEV->version));
+    ui->label_7->setText(p_uso->DEV->notice);
+    ui->label_8->setText(str.setNum(device_addr));
 
     /*for(i=0;i<ui->tableWidget->rowCount();i++)
     {
