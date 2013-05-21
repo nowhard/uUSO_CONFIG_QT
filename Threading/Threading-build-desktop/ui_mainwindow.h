@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 20. May 14:47:34 2013
+** Created: Mon 20. May 14:50:51 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -186,11 +186,11 @@ public:
         menuBar->addAction(menu_2->menuAction());
         menu->addAction(action_connect);
         menu->addAction(action_COM);
-        menu_2->addAction(action_Set_Settings_Default);
-        menu_2->addAction(action_SAVE);
-        menu_2->addAction(action_LOAD);
         menu_2->addAction(action_set_chn_settings);
         menu_2->addAction(action_set_dev_addr);
+        menu_2->addAction(action_SAVE);
+        menu_2->addAction(action_LOAD);
+        menu_2->addAction(action_Set_Settings_Default);
         menu_3->addAction(action_dev_polling);
 
         retranslateUi(MainWindow);

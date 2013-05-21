@@ -295,11 +295,11 @@
     <property name="title">
      <string>Настройка устройства</string>
     </property>
-    <addaction name="action_Set_Settings_Default"/>
-    <addaction name="action_SAVE"/>
-    <addaction name="action_LOAD"/>
     <addaction name="action_set_chn_settings"/>
     <addaction name="action_set_dev_addr"/>
+    <addaction name="action_SAVE"/>
+    <addaction name="action_LOAD"/>
+    <addaction name="action_Set_Settings_Default"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
