@@ -80,6 +80,7 @@ private:
     QVector<CalibrPoints*> CalibrList;
 
     quint8 device_addr;
+    quint8 chn_counter;
 
 private slots:
 
@@ -90,6 +91,7 @@ private slots:
 
     void on_dev_info_responsed(void);
     void on_dev_get_data_responsed(void);
+    void on_get_calibrate_responsed(quint8 channel,quint8 calibrated, float K,float C);
 
     void on_connect_device(quint8 dev_addr);
 
@@ -122,6 +124,7 @@ private slots:
 
     void on_dialog_set_dev_info(void);
     void on_dialog_get_dev_info(void);
+    void on_action_get_calibrate_triggered();
 };
 
 

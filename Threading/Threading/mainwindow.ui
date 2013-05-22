@@ -300,6 +300,8 @@
     <addaction name="action_SAVE"/>
     <addaction name="action_LOAD"/>
     <addaction name="action_Set_Settings_Default"/>
+    <addaction name="separator"/>
+    <addaction name="action_get_calibrate"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -363,6 +365,11 @@
   <action name="action_set_dev_addr">
    <property name="text">
     <string>Имя/адрес устройства</string>
+   </property>
+  </action>
+  <action name="action_get_calibrate">
+   <property name="text">
+    <string>Получить калибровки</string>
    </property>
   </action>
  </widget>

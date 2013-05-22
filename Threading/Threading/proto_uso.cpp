@@ -290,9 +290,14 @@ void proto_uso::ResponseHandling(QByteArray response)
     CRC=response[response.length()-1];
 qDebug("RESPONSED!!!");
     if(trueCRC!=CRC)
+    {
+        qDebug("CRC ERR");
         return;//прерываем, если произоша ошибка передачи данных
+    }
+    qDebug("CRC OK");
     //------------------
-    switch(response[4])
+
+    switch((quint8)response[4])
     {
         case GET_DEV_INFO_RESP_:
         {
@@ -303,6 +308,13 @@ qDebug("RESPONSED!!!");
         case CHANNEL_ALL_GET_DATA_RESP_:
         {
             CHANNEL_ALL_GET_DATA_RESP(response);
+        }
+        break;
+
+        case CHANNEL_GET_CALIBRATE_RESP_:
+        {
+
+            CHANNEL_GET_CALIBRATE_RESP(response);
         }
         break;
 
@@ -442,5 +454,60 @@ void proto_uso::CHANNEL_SET_ALL_DEFAULT(quint8 dev_addr)//сбросить настройки и к
 
      emit this->WriteToOut_Thread(request);
      qDebug("DATA REQUESTED!!!");
+    return;
+}
+
+void proto_uso::CHANNEL_GET_CALIBRATE_REQ(quint8 dev_addr,quint8 channel)//запрос на получение калибровки канала
+{
+    QByteArray request,set_request;
+    quint8 CRC;
+
+    request.append((char)0x0);
+    request.append((char)0xD7);
+    request.append((char)0x29);//заголовок кадра
+    request.append(dev_addr);
+    request.append(CHANNEL_GET_CALIBRATE_REQ_);
+    request.append((char)0x2);
+    request.append(channel);
+    CRC=CRC8(request,request.length());
+    request.append(CRC);
+
+    qDebug()<<request.toHex();
+
+     emit this->WriteToOut_Thread(request);
+     qDebug("DATA REQUESTED!!!");
+    return;
+}
+
+void proto_uso::CHANNEL_GET_CALIBRATE_RESP(QByteArray response)//ответ от устройства с калибровкой канала
+{
+    quint8 channel=0,calibrated=0;
+    float K,C;
+
+    union
+    {
+        float  fl_val;
+        quint8 ch_val[4];
+    }fl_char;
+
+    channel=response[6];
+    calibrated=response[7];
+
+    fl_char.ch_val[3]=response[11];
+    fl_char.ch_val[2]=response[10];
+    fl_char.ch_val[1]=response[9];
+    fl_char.ch_val[0]=response[8];
+
+    K=fl_char.fl_val;
+
+    fl_char.ch_val[3]=response[15];
+    fl_char.ch_val[2]=response[14];
+    fl_char.ch_val[1]=response[13];
+    fl_char.ch_val[0]=response[12];
+
+    C=fl_char.fl_val;
+
+    emit GET_CALIBRATE_RESPONSED(channel,calibrated,K,C);
+    qDebug()<<"CALIBRATED="<<calibrated<<"; K="<<K<<"; C="<<C;
     return;
 }

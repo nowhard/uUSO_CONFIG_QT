@@ -61,6 +61,9 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(d_info,SIGNAL(set_dev_info()),this,SLOT(on_dialog_set_dev_info()));
 
      CalibrList.clear();
+
+     connect(p_uso,SIGNAL(GET_CALIBRATE_RESPONSED(quint8,quint8,float,float)),this,SLOT(on_get_calibrate_responsed(quint8,quint8,float,float)));
+
      UnactiveInterface();
 }
 
@@ -651,4 +654,19 @@ void MainWindow::on_dialog_set_dev_info(void)
 void MainWindow::on_dialog_get_dev_info(void)
 {
      p_uso->GET_DEV_INFO_REQ(device_addr);
+}
+
+void MainWindow::on_action_get_calibrate_triggered()
+{
+    p_uso->CHANNEL_GET_CALIBRATE_REQ(device_addr,0);
+    chn_counter=1;
+}
+
+void MainWindow::on_get_calibrate_responsed(quint8 channel,quint8 calibrated, float K,float C)
+{
+    if(chn_counter<14)
+    {
+        p_uso->CHANNEL_GET_CALIBRATE_REQ(device_addr,chn_counter);
+        chn_counter++;
+    }
 }

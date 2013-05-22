@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon 20. May 14:50:51 2013
+** Created: Wed 22. May 13:58:48 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -39,6 +39,7 @@ public:
     QAction *action_set_chn_settings;
     QAction *action_dev_polling;
     QAction *action_set_dev_addr;
+    QAction *action_get_calibrate;
     QWidget *centralWidget;
     QGroupBox *groupBox_3;
     QTableWidget *tableWidget;
@@ -94,6 +95,8 @@ public:
         action_dev_polling->setObjectName(QString::fromUtf8("action_dev_polling"));
         action_set_dev_addr = new QAction(MainWindow);
         action_set_dev_addr->setObjectName(QString::fromUtf8("action_set_dev_addr"));
+        action_get_calibrate = new QAction(MainWindow);
+        action_get_calibrate->setObjectName(QString::fromUtf8("action_get_calibrate"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         groupBox_3 = new QGroupBox(centralWidget);
@@ -191,6 +194,8 @@ public:
         menu_2->addAction(action_SAVE);
         menu_2->addAction(action_LOAD);
         menu_2->addAction(action_Set_Settings_Default);
+        menu_2->addSeparator();
+        menu_2->addAction(action_get_calibrate);
         menu_3->addAction(action_dev_polling);
 
         retranslateUi(MainWindow);
@@ -210,6 +215,7 @@ public:
         action_set_chn_settings->setText(QApplication::translate("MainWindow", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214 \320\277\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", 0, QApplication::UnicodeUTF8));
         action_dev_polling->setText(QApplication::translate("MainWindow", "\320\235\320\260\321\207\320\260\321\202\321\214 \320\276\320\277\321\200\320\276\321\201 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
         action_set_dev_addr->setText(QApplication::translate("MainWindow", "\320\230\320\274\321\217/\320\260\320\264\321\200\320\265\321\201 \321\203\321\201\321\202\321\200\320\276\320\271\321\201\321\202\320\262\320\260", 0, QApplication::UnicodeUTF8));
+        action_get_calibrate->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\273\321\203\321\207\320\270\321\202\321\214 \320\272\320\260\320\273\320\270\320\261\321\200\320\276\320\262\320\272\320\270", 0, QApplication::UnicodeUTF8));
         groupBox_3->setTitle(QApplication::translate("MainWindow", "\320\237\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271 \321\201\321\202\320\276\320\273\320\261\320\265\321\206", 0, QApplication::UnicodeUTF8));

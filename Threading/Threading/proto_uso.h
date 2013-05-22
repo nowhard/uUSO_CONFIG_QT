@@ -39,10 +39,10 @@ public:
   CHANNEL_GET_DATA_ORDER_REQ_=		 0xC,	//Выдать данные по каналам, согласно последовательности опроса;
   CHANNEL_GET_DATA_ORDER_RESP_=  	 0xD,	//Выдать данные по каналам, согласно последовательности опроса;
 
-  CHANNEL_SET_STATE_REQ_=		 0xE,//Установить состояния по каналам, согласно абсолютной нумерации;
-  CHANNEL_SET_STATE_RESP_=		 0xF,	   //Установить состояния по каналам, согласно абсолютной нумерации; нет ответа
+  CHANNEL_SET_STATE_REQ_=            0xE,//Установить состояния по каналам, согласно абсолютной нумерации;
+  CHANNEL_SET_STATE_RESP_=           0xF,	   //Установить состояния по каналам, согласно абсолютной нумерации; нет ответа
 
-  CHANNEL_GET_DATA_ORDER_M2_REQ_=         0x10, //Выдать данные по каналам, согласно последовательности опроса;
+  CHANNEL_GET_DATA_ORDER_M2_REQ_=    0x10, //Выдать данные по каналам, согласно последовательности опроса;
   CHANNEL_GET_DATA_ORDER_M2_RESP_=	 0x11,//Выдать данные по каналам, согласно последовательности опроса;
 
   CHANNEL_SET_RESET_STATE_FLAGS_REQ_=     0x12,//Установка/Сброс флагов состояния
@@ -53,6 +53,10 @@ public:
 
   CHANNEL_SET_ADDRESS_DESC_=		 0xCD, //установить адрес, имя, описание и т.д.
   CHANNEL_SET_CALIBRATE_=            0xCA,//установить калибровку каналов
+
+  CHANNEL_GET_CALIBRATE_REQ_=        0xCB,//получить калибровку канала
+  CHANNEL_GET_CALIBRATE_RESP_=       0xCC,//получить калибровку канала
+
   CHANNEL_SET_ALL_DEFAULT_=    		 0xDF, //сбросить настройки и калибровки по умолчанию
 
   REQUEST_ERROR_=			 0xFF//Ошибочный запрос/ответ;
@@ -92,6 +96,7 @@ signals:
     void WriteToOut_Thread(QByteArray request);//сигнал для класса выходного потока
     void DEV_INFO_RESPONSED(void);
     void GET_ALL_DATA_RESPONSED(void);
+    void GET_CALIBRATE_RESPONSED(quint8 channel, quint8 calibrated, float K,float C);
 public slots:
 
     void GET_DEV_INFO_REQ(qint8 dev_addr);//запрос на получение информации об устройстве
@@ -108,6 +113,9 @@ public slots:
     void CHANNEL_SET_CALIBRATE(quint8 dev_addr,quint8 channel, char point,unsigned long num);//запрос на калибровку минимума-максимума
 
     void CHANNEL_SET_CALIBRATE(quint8 dev_addr,quint8 channel, char mode,float K, float C);//запрос на калибровку минимума-максимума
+
+    void CHANNEL_GET_CALIBRATE_REQ(quint8 dev_addr,quint8 channel);//запрос на получение калибровки канала
+    void CHANNEL_GET_CALIBRATE_RESP(QByteArray response);//ответ от устройства с калибровкой канала
 
     void CHANNEL_SET_ALL_DEFAULT(quint8 dev_addr);//сбросить настройки и калибровки по умолчанию
 private slots:
@@ -132,6 +140,10 @@ public:
     quint8 state_byte1;
     quint8 state_byte2;
     quint32 channel_data;
+
+    quint8 calibrated;
+    float K;
+    float C;
 };
 
 class DEVICE
