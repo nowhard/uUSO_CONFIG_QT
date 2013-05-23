@@ -62,6 +62,7 @@ private:
     //MB_Register reg_pack;
     //---------------------
     QTimer *timer;
+    QTimer *settings_timer;
   //  QTimer *timer2;
   //  QTimer *query_timer;
    // QFile settings;
@@ -125,6 +126,9 @@ private slots:
     void on_dialog_set_dev_info(void);
     void on_dialog_get_dev_info(void);
     void on_action_get_calibrate_triggered();
+    void on_action_set_all_calibrate_triggered();
+
+    void on_set_all_calibrates_clicked(void);//установить все калибровки
 };
 
 

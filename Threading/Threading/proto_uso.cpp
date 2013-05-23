@@ -277,7 +277,7 @@ void   proto_uso::CHANNEL_SET_ADDRESS_DESC(quint8 dev_addr,quint8 new_addr,QStri
 
 void proto_uso::REQUEST_ERROR(QByteArray response)//общий обработчик ошибок, возникших при передаче данных, работе и т.д.
 {
-    qDebug("ERROR !!!");
+    qDebug("ERR_OR_OK!");
     return;
 }
 

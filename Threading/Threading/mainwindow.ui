@@ -302,6 +302,7 @@
     <addaction name="action_Set_Settings_Default"/>
     <addaction name="separator"/>
     <addaction name="action_get_calibrate"/>
+    <addaction name="action_set_all_calibrate"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -334,12 +335,12 @@
   </action>
   <action name="action_SAVE">
    <property name="text">
-    <string>Сохранить настройки</string>
+    <string>Сохранить настройки/калибровки</string>
    </property>
   </action>
   <action name="action_LOAD">
    <property name="text">
-    <string>Загрузить настройки</string>
+    <string>Загрузить настройки/калибровки</string>
    </property>
   </action>
   <action name="action_Set_Settings_Default">
@@ -369,7 +370,12 @@
   </action>
   <action name="action_get_calibrate">
    <property name="text">
-    <string>Получить калибровки</string>
+    <string>Получить калибровки устройства</string>
+   </property>
+  </action>
+  <action name="action_set_all_calibrate">
+   <property name="text">
+    <string>Отправить калибровки в устройство</string>
    </property>
   </action>
  </widget>

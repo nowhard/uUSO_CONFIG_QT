@@ -10,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
     port->setTotalReadConstantTimeout(0);
 
     timer=new QTimer();
+    settings_timer=new QTimer();
+
+    connect(settings_timer,SIGNAL(timeout()),this,SLOT(on_set_all_calibrates_clicked()));
 
     p_uso=new proto_uso(this,port);
      QTextCodec::setCodecForTr(QTextCodec::codecForName("Windows-1251"));
@@ -110,9 +113,6 @@ void MainWindow:: MessageNotConnected(void)
 {
      ui->statusBar->showMessage("Device Not Connected");
 }
-
-
-
 
 
 void MainWindow::Display_Dev_Info(bool OK,quint16 ID, QString Description)//отобразить информацию об устройстве
@@ -320,14 +320,6 @@ void MainWindow::Get_All_Data(void)
 }
 
 
-
-//void MainWindow::on_pushButton_5_clicked()
-//{
-//    QByteArray ver;
-//    ver.append(ui->lineEdit_4->text());
-//    p_uso->CHANNEL_SET_ADDRESS_DESC(device_addr,ui->spinBox_2->value(),ui->lineEdit_2->text(),ver,ui->lineEdit_3->text());
-//}
-
 void MainWindow::UnactiveInterface(void)
 {
     //ui->groupBox_4->setEnabled(false);
@@ -383,10 +375,12 @@ void MainWindow::on_calibrate_flag_clicked()//установить снять флаг калибровки п
     if(chkbox->checkState())
     {
          p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),2,0,0);
+         chnl[name.toInt()]->calibrated=1;
     }
     else
     {
          p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),1,0,0);
+         chnl[name.toInt()]->calibrated=0;
     }
 
     qDebug() << "CNOCK FLAG"<<name;
@@ -404,10 +398,6 @@ void MainWindow::on_menu_load_settings_clicked()
     QSettings *settings = new QSettings(/*"settings.conf"*/s,QSettings::IniFormat);
    // settings->clear();
 
-//    ui->lineEdit_2->setText(settings->value("device/name","").toString());  //устанавливаем значение
-//    ui->lineEdit_4->setText(settings->value("device/version","").toString());  //устанавливаем значение
-//    ui->lineEdit_3->setText(settings->value("device/description","").toString());  //устанавливаем значение
-//    ui->spinBox_2->setValue(settings->value("device/address","").toInt());  //устанавливаем значение
 
      d_info->set_dev_name_text(settings->value("device/name","").toString());
      d_info->set_dev_ver_text(settings->value("device/version","").toString());
@@ -429,6 +419,27 @@ void MainWindow::on_menu_load_settings_clicked()
             QSpinBox *spin=qobject_cast<QSpinBox *>(ui->tableWidget->cellWidget(i, 3));
 
             spin->setValue(settings->value("channel_"+integer.setNum(i)+"/filter",3).toInt());
+
+            chnl[i]->calibrated=settings->value("channel_"+integer.setNum(i)+"/calibrated",0).toInt();
+            chnl[i]->K=settings->value("channel_"+integer.setNum(i)+"/K",0).toFloat();
+            chnl[i]->C=settings->value("channel_"+integer.setNum(i)+"/C",0).toFloat();
+
+            QCheckBox *chkbox=qobject_cast<QCheckBox *>(ui->tableWidget->cellWidget(i, 9));
+
+            if(chnl[i]->calibrated)
+            {
+                chkbox->setChecked(true);
+            }
+            else
+            {
+                chkbox->setChecked(false);
+            }
+
+            cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(i, 11));
+           // settings->setValue("channel_"+integer.setNum(i)+"/n_bit",cmb->currentIndex());
+            cmb->setCurrentIndex(settings->value("channel_"+integer.setNum(i)+"/n_bit",0).toInt());
+
+            qDebug()<<"Calibrated="<<chnl[i]->calibrated<<"; K="<<chnl[i]->K<<"; C="<<chnl[i]->C;
         }
     }
     qDebug() << "SETTINGS LOADED"<< s;
@@ -465,6 +476,14 @@ void MainWindow::on_menu_save_settings_clicked()
             settings->setValue("channel_"+integer.setNum(i)+"/diapason",cmb->currentIndex());
             QSpinBox *spin=qobject_cast<QSpinBox *>(ui->tableWidget->cellWidget(i, 3));
             settings->setValue("channel_"+integer.setNum(i)+"/filter",spin->text());
+
+
+            cmb=qobject_cast<QComboBox *>(ui->tableWidget->cellWidget(i, 11));
+            settings->setValue("channel_"+integer.setNum(i)+"/n_bit",cmb->currentIndex());
+
+            settings->setValue("channel_"+integer.setNum(i)+"/calibrated",chnl[i]->calibrated);
+            settings->setValue("channel_"+integer.setNum(i)+"/K",chnl[i]->K);
+            settings->setValue("channel_"+integer.setNum(i)+"/C",chnl[i]->C);
         }
     }
 
@@ -483,11 +502,12 @@ void MainWindow::on_calibrate_set_button_clicked()
     QSpinBox *spin=qobject_cast<QSpinBox *>(ui->tableWidget->cellWidget(/*ui->tableWidget->rowCount()-1*/name.toInt(), 8));
 
 
-    K=((float)CalibrList[name.toInt()]->second_point_y-(float)CalibrList[name.toInt()]->first_point_y)/((float)CalibrList[name.toInt()]->second_point_x-(float)CalibrList[name.toInt()]->first_point_x);
-    C=(float)CalibrList[name.toInt()]->first_point_y-(float)CalibrList[name.toInt()]->first_point_x*K;
+
+    chnl[name.toInt()]->K=((float)CalibrList[name.toInt()]->second_point_y-(float)CalibrList[name.toInt()]->first_point_y)/((float)CalibrList[name.toInt()]->second_point_x-(float)CalibrList[name.toInt()]->first_point_x);
+    chnl[name.toInt()]->C=(float)CalibrList[name.toInt()]->first_point_y-(float)CalibrList[name.toInt()]->first_point_x*K;
 
    qDebug() << "CNOCK SET"<<name<<" "<<K<<" "<<C;
-    p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),0,K,C);
+    p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),0,chnl[name.toInt()]->K,chnl[name.toInt()]->C);
 }
 
 
@@ -658,15 +678,59 @@ void MainWindow::on_dialog_get_dev_info(void)
 
 void MainWindow::on_action_get_calibrate_triggered()
 {
-    p_uso->CHANNEL_GET_CALIBRATE_REQ(device_addr,0);
-    chn_counter=1;
+    chn_counter=0;
+    p_uso->CHANNEL_GET_CALIBRATE_REQ(device_addr,chn_counter);
+
 }
 
 void MainWindow::on_get_calibrate_responsed(quint8 channel,quint8 calibrated, float K,float C)
 {
-    if(chn_counter<14)
+    QCheckBox *chkbox=qobject_cast<QCheckBox *>(ui->tableWidget->cellWidget(chn_counter, 9));
+
+    if(chn_counter<adc_chn_num/*p_uso->DEV->channel_num*/)
     {
-        p_uso->CHANNEL_GET_CALIBRATE_REQ(device_addr,chn_counter);
+        chnl[channel]->calibrated=calibrated;
+
+        if(calibrated!=0)
+        {
+            chkbox->setChecked(true);
+        }
+        else
+        {
+            chkbox->setChecked(false);
+        }
+
+        chnl[channel]->K=K;
+        chnl[channel]->C=C;
         chn_counter++;
+        p_uso->CHANNEL_GET_CALIBRATE_REQ(device_addr,chn_counter);
+    }
+}
+
+void MainWindow::on_action_set_all_calibrate_triggered()
+{
+    settings_timer->start(50);
+    chn_counter=0;
+}
+
+void MainWindow::on_set_all_calibrates_clicked(void)//установить все калибровки
+{
+
+
+    if(chn_counter<adc_chn_num)
+    {
+        p_uso->CHANNEL_SET_CALIBRATE(device_addr,chn_counter,0,chnl[chn_counter]->K,chnl[chn_counter]->C);
+    }
+
+
+    if((chn_counter<adc_chn_num*2)&&(chn_counter>=adc_chn_num) && (chnl[chn_counter-adc_chn_num]->calibrated))
+    {
+        p_uso->CHANNEL_SET_CALIBRATE(device_addr,(chn_counter-adc_chn_num),2,0,0);
+    }
+    chn_counter++;
+
+    if(chn_counter==adc_chn_num*2)
+    {
+        settings_timer->stop();
     }
 }
