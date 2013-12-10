@@ -504,9 +504,9 @@ void MainWindow::on_calibrate_set_button_clicked()
 
 
     chnl[name.toInt()]->K=((float)CalibrList[name.toInt()]->second_point_y-(float)CalibrList[name.toInt()]->first_point_y)/((float)CalibrList[name.toInt()]->second_point_x-(float)CalibrList[name.toInt()]->first_point_x);
-    chnl[name.toInt()]->C=(float)CalibrList[name.toInt()]->first_point_y-(float)CalibrList[name.toInt()]->first_point_x*K;
+    chnl[name.toInt()]->C=(float)CalibrList[name.toInt()]->first_point_y-(float)CalibrList[name.toInt()]->first_point_x*chnl[name.toInt()]->K;
 
-   qDebug() << "CNOCK SET"<<name<<" "<<K<<" "<<C;
+   qDebug() << "CNOCK SET"<<name<<" "<<chnl[name.toInt()]->K<<" "<<chnl[name.toInt()]->C;
     p_uso->CHANNEL_SET_CALIBRATE(device_addr,name.toInt(),0,chnl[name.toInt()]->K,chnl[name.toInt()]->C);
 }
 

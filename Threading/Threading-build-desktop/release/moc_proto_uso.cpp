@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'proto_uso.h'
 **
-** Created: Wed 22. May 13:43:39 2013
+** Created: Mon 9. Dec 16:14:17 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

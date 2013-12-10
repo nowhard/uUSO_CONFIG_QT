@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'connect_dialog.ui'
 **
-** Created: Mon 20. May 13:16:42 2013
+** Created: Mon 9. Dec 16:13:49 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
